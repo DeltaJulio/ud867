@@ -7,6 +7,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Toast;
 
+import io.github.deltajulio.JokeClass;
 
 public class MainActivity extends ActionBarActivity {
 
@@ -40,7 +41,8 @@ public class MainActivity extends ActionBarActivity {
     }
 
     public void tellJoke(View view) {
-        Toast.makeText(this, "derp", Toast.LENGTH_SHORT).show();
+        JokeClass jokeClass = new JokeClass();
+        Toast.makeText(this, jokeClass.getJoke(), Toast.LENGTH_SHORT).show();
     }
 
 
