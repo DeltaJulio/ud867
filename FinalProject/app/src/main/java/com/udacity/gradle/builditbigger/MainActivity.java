@@ -1,5 +1,6 @@
 package com.udacity.gradle.builditbigger;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
 import android.view.Menu;
@@ -7,7 +8,10 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Toast;
 
+import io.github.deltajulio.androidjokelib.DisplayActivity;
 import io.github.deltajulio.JokeClass;
+
+import static io.github.deltajulio.androidjokelib.DisplayActivity.JOKE_MESSAGE;
 
 public class MainActivity extends ActionBarActivity {
 
@@ -42,7 +46,9 @@ public class MainActivity extends ActionBarActivity {
 
     public void tellJoke(View view) {
         JokeClass jokeClass = new JokeClass();
-        Toast.makeText(this, jokeClass.getJoke(), Toast.LENGTH_SHORT).show();
+        Intent intent = new Intent(this, DisplayActivity.class);
+        intent.putExtra(DisplayActivity.JOKE_MESSAGE, jokeClass.getJoke());
+        startActivity(intent);
     }
 
 
