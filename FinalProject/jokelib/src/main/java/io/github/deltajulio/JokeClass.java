@@ -2,7 +2,7 @@ package io.github.deltajulio;
 
 public class JokeClass
 {
-    public String getJoke()
+    public static String getJoke()
     {
         return "Bazinga";
     }
