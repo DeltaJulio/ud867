@@ -3,6 +3,7 @@ package com.udacity.gradle.builditbigger;
 import android.content.Context;
 import android.content.Intent;
 import android.os.AsyncTask;
+import android.os.Handler;
 import android.widget.Toast;
 
 import com.google.api.client.extensions.android.http.AndroidHttp;
@@ -22,7 +23,12 @@ import io.github.deltajulio.jokebackend.myApi.MyApi;
 public class JokeAsyncTask extends AsyncTask<Context, Void, String>
 {
     private static MyApi jokeApiService = null;
-    private Context context;
+    private JokeInterface callback;
+
+    public JokeAsyncTask(JokeInterface callback)
+    {
+        this.callback = callback;
+    }
 
     @Override
     protected String  doInBackground(Context... params)
@@ -43,8 +49,6 @@ public class JokeAsyncTask extends AsyncTask<Context, Void, String>
             jokeApiService = builder.build();
         }
 
-        context = params[0];
-
         try
         {
             return jokeApiService.jokeEndpoint().execute().getData();
@@ -57,8 +61,6 @@ public class JokeAsyncTask extends AsyncTask<Context, Void, String>
     @Override
     protected void onPostExecute(String result)
     {
-        Intent intent = new Intent(context, DisplayActivity.class);
-        intent.putExtra(DisplayActivity.JOKE_MESSAGE, result);
-        context.startActivity(intent);
+        callback.onJokeReceived(result);
     }
 }

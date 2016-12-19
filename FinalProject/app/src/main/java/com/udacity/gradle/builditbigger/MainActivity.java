@@ -13,7 +13,8 @@ import io.github.deltajulio.androidjokelib.DisplayActivity;
 
 //import io.github.deltajulio.JokeClass;
 
-public class MainActivity extends ActionBarActivity {
+public class MainActivity extends ActionBarActivity implements JokeInterface
+{
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -46,8 +47,14 @@ public class MainActivity extends ActionBarActivity {
 
     public void tellJoke(View view)
     {
-        new JokeAsyncTask().execute(this);
+        new JokeAsyncTask(this).execute();
     }
 
+    public void onJokeReceived(String joke)
+    {
+        Intent intent = new Intent(this, DisplayActivity.class);
+        intent.putExtra(DisplayActivity.JOKE_MESSAGE, joke);
+        startActivity(intent);
+    }
 
 }
